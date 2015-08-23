@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<repositories version="1.0">
+  <repo priority="50" quality="experimental" status="unofficial">
+    <name>robots-from-scratch</name>
+    <description>Gentoo ebuilds for the RobotsFromScratch! project.</description>
+    <homepage>https://github.com/aserranoh/rfs-overlay</homepage>
+    <owner>
+      <email>toni.serranoh@gmail.com</email>
+      <name>Antonio Serrano Hernandez</name>
+    </owner>
+    <source type="git">https://github.com/aserranoh/rfs-overlay.git</source>
+  </repo>
+</repositories>
+
