@@ -22,27 +22,32 @@ RDEPEND=""
 
 S="${WORKDIR}/${MY_P}"
 
-DOCS="${MY_PV/-*/}/doc/*.pdf"
-HTML_DOCS="${MY_PV/-*/}/doc/html/*"
+VS=${MY_PV/-*/}
+DOCS="${VS}/doc/*.pdf"
+HTML_DOCS="${VS}/doc/html/*"
+SHAREDIR="/usr/share/${PN}/${VS}"
+
+inherit toolchain-funcs
 
 src_compile() {
-    g++ -Wall -O2 -o ${PN}-${MY_PV/-*/} *.cpp || die
+	$(tc-getCXX) ${LDFLAGS} ${CFLAGS} -o ${PN}-${VS} *.cpp || die
 }
 
 src_install() {
-    dobin "${PN}-${MY_PV/-*/}"
-    dosym "${PN}-${MY_PV/-*/}" "/usr/bin/${PN}"
-    if use doc; then
-        dodoc ${DOCS}
-        dohtml ${HTML_DOCS}
-    fi
-    rm -r ${MY_PV/-*/}/doc
-    # Remove device_obsolete directory to save a lot of MB
-    if ! use deprecated; then
-        rm -r ${MY_PV/-*/}/include/device_obsolete
-    fi
-    dodir /usr/share/${PN}
-    insinto /usr/share/${PN}
-    doins -r ${MY_PV/-*/}
+	dobin "${PN}-${VS}"
+	dosym "${PN}-${VS}" "/usr/bin/${PN}"
+	insinto ${SHAREDIR}
+	doins -r ${VS}/src
+	doins -r ${VS}/lib
+	doins -r ${VS}/lkr
+	insinto ${SHAREDIR}/include
+	doins ${VS}/include/*.h
+	doins -r ${VS}/include/sys
+	doins -r ${VS}/include/device
+	use deprecated && doins -r ${VS}/include/device_obsolete
+	if use doc; then
+		dodoc ${DOCS}
+		dohtml ${HTML_DOCS}
+	fi
 }
 
