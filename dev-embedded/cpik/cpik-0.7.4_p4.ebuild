@@ -25,7 +25,6 @@ S="${WORKDIR}/${MY_P}"
 VS=${MY_PV/-*/}
 DOCS="${VS}/doc/*.pdf"
 HTML_DOCS="${VS}/doc/html/*"
-SHAREDIR="/usr/share/${PN}/${VS}"
 
 inherit toolchain-funcs
 
@@ -36,18 +35,14 @@ src_compile() {
 src_install() {
 	dobin "${PN}-${VS}"
 	dosym "${PN}-${VS}" "/usr/bin/${PN}"
-	insinto ${SHAREDIR}
-	doins -r ${VS}/src
-	doins -r ${VS}/lib
-	doins -r ${VS}/lkr
-	insinto ${SHAREDIR}/include
-	doins ${VS}/include/*.h
-	doins -r ${VS}/include/sys
-	doins -r ${VS}/include/device
-	use deprecated && doins -r ${VS}/include/device_obsolete
 	if use doc; then
 		dodoc ${DOCS}
 		dohtml ${HTML_DOCS}
 	fi
+	rm -r ${VS}/doc
+	# Remove device_obsolete directory to save a lot of MB
+	use deprecated || rm -r ${VS}/include/device_obsolete
+	insinto /usr/share/${PN}
+	doins -r ${VS}
 }
 
