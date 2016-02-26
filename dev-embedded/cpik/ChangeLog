@@ -1,0 +1,11 @@
+*cpik-0.7.4_p4 (22 Sep 2015)
+
+  22 Sep 2015; Antonio Serrano <toni.serranoh@gmail.com> :
+  Modified installation procedure
+
+  21 Sep 2015; Antonio Serrano <toni.serranoh@gmail.com> :
+  Applied Gentoo coding standards
+
+  18 Sep 2015; Antonio Serrano <toni.serranoh@gmail.com> :
+  New version
+  Added use flags doc and deprecated
