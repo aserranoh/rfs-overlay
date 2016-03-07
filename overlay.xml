@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<repositories version="1.1">
+<repositories version="1.2">
   <repo priority="50" quality="experimental" status="unofficial">
     <name>robots-from-scratch</name>
     <description>Gentoo ebuilds for the RobotsFromScratch! project.</description>
