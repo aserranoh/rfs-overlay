@@ -19,6 +19,3 @@ RESTRICT="mirror"
 
 RDEPEND="dev-python/intelhex"
 
-python_install() {
-    distutils-r1_python_install --install-data="${EPREFIX}"/usr/share/${PN}
-}
