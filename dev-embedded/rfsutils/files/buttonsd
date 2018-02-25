@@ -1,0 +1,21 @@
+#!/sbin/openrc-run
+# Copyright 1999-2018 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+
+description="buttonsd - manages GPIO buttons"
+pidfile="/var/run/buttonsd.pid"
+command="/usr/bin/buttonsd"
+command_args="-p ${pidfile} -d ${BUTTONSD_OPTS}"
+start_stop_daemon_args="--pidfile ${pidfile}"
+
+depend() {
+        need sysfs
+}
+
+start_pre() {
+	if [ ! -d /sys/class/gpio ] ; then
+		eerror "This machine doesn't seem to have a GPIO"
+		return 1
+	fi
+	return 0
+}
